@@ -1,0 +1,47 @@
+problem: standard  # The name of the split.
+start: 0  # The start index of rendering.
+n_sample: 510000  # The number of samples to render.
+seed: 2020  # Same `problem` and `seed` will result in same samples.
+
+initial_cameras: [Camera_Center]  # The initial angle of views.
+final_cameras: [Camera_Left, Camera_Center, Camera_Right]  # The final angle of views.
+valid_attr: ['shape', 'size', 'position', 'material', 'color']  # Optional transformation type.
+
+total_obj: 10  # The total number of objects.
+min_init_vis: 1  # The minimum number of visible objects in the initial states.
+max_init_vis: 10  # The maximum number of visible objects in the initial states.
+min_trans: 1  # The minimum number of transformations between initial and final states.
+max_trans: 4  # The maximum number of transformations between initial and final states.
+
+width: 320  # The width of rendering images (in pixels).
+height: 240  # The height of rendering images (in pixels).
+lamp_jitter: 1.0  # The magnitude of random jitter for light position.
+camera_jitter: 0.5  # The magnitude of random jitter for camera position.
+
+seg_width: 320  # The width of rendering segmentation maps (in pixels).
+seg_height: 240  # The height of rendering segmentation maps (in pixels).
+occlusion_threshold: 150  # Objects' pixel numbers less than this threshold will be considered as occluded.
+
+base_scene_file: 'resource/base_scene.blend'  # The basic scene file which defines ground plane, lights, and camera.
+shape_dir: 'resource/shapes'  # The directory contains blender files for object models.
+material_dir: 'resource/materials' # The directory contains blender files for materials.
+properties_json: 'resource/properties.json'  # JSON file defines the environmental settings of TRANCE.
+values_json: 'resource/values.json'  # JSON file defining all transformations.
+
+dataset_prefix: 'TRANCE'  # The prefix of rendered images and JSON scenes.
+output_data_dir: '../TRANCE'  # The split will be saved at <output_data_dir>/<problem>.
+json_indent: 2  # An argument will be used in `json.dump`. Set it to `null` if you want to save storage space.
+render_intermediate: false  # If true, intermediate states in Event will also be rendered as images.
+output_blend: false  # If true, the blender file of states will also be saved.
+output_log: true  # If true, logs during rendering will be saved.
+output_log_dir: '../TRANCE/logs'  # The directory of logging files.
+no_render: false  # If true, will not render images. Useful for debugging.
+
+# Optimization reference: https://www.blenderguru.com/articles/4-easy-ways-to-speed-up-cycles
+gpu: true   # If true, use gpu for rendering. If false, use cpu.
+render_num_samples: 512  # Larger values will result in nicer images but will cause rendering to take longer.
+transparent_min_bounces: 8  # The minimum number of bounces to use for transparent rendering.
+transparent_max_bounces: 8  # The maximum number of bounces for transparent rendering.
+min_bounces: 0  # The minimum number of bounces used for rendering.
+max_bounces: 4  # The maximum number of bounces used for rendering.
+render_tile_size: 256  # The tile size used for rendering. Best practice of ours: CPU(16) GPU(256).

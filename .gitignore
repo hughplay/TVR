@@ -1,0 +1,13 @@
+# Workspace
+.DS_Store
+.vscode/
+
+# Python
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+
+# Data
+data/*
+!data/gen_src/
+data/gen_src/blender_app/
