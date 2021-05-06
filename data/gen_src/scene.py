@@ -10,7 +10,7 @@ from contextlib import redirect_stdout
 
 import numpy as np
 
-from utils.option import Option
+from option import Option
 
 import bpy
 import bpy_extras

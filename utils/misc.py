@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import hashlib
+import os
 import time
+import sys
 from PIL import Image
 
 
@@ -51,3 +53,17 @@ def hash_seed(*items, width=32):
     for item in items:
         sha.update(str(item).encode('utf-8'))
     return int(sha.hexdigest()[23:23+width//4], 16)
+
+
+def close_print():
+    fd = os.dup(1)
+    sys.stdout.flush()
+    os.close(1)
+    os.open(os.devnull, os.O_WRONLY)
+    return fd
+
+
+def open_print(fd):
+    os.close(1)
+    os.dup(fd)
+    os.close(fd)

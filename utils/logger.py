@@ -10,7 +10,7 @@ default_date_fmt = '%Y-%m-%d %H:%M:%S'
 default_log = 'output.log'
 default_error_log = 'error.log'
 
-log_max_bytes = 2 ** 20 * 10
+log_max_bytes = 2 ** 30 * 1
 log_backup_count = 2
 
 

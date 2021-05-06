@@ -1,0 +1,86 @@
+version: event.ConcatResNet  # Version of config file.
+date: '2021-03-06'  # Creation date of this file.
+
+runner: EventRunner  # Class name of executor.
+recorder: EventRecorder  # Class name of recorder.
+data: event  # Name of the dataset.
+seed: 2021  # Random seed.
+
+device: 'cuda:0'  # Device used to deploy model.
+epochs: 50  # Total epochs of training.
+
+# == Model ==
+model: ConcatResNet  # Name of model class.
+model_args:  # Assignment of model parameters.
+  height: 120
+  width: 160
+  rnn: GRU
+  teacher_forcing: true
+  c_pair_embed: 8
+  max_step: 4
+  c_hidden: [128]
+  arch: 'resnet18'
+  fc_img_en: [128]
+  fc_fusion: [128]
+
+# == Optimizer ==
+optimizer: Adam  # Name of optimizer class.
+optimizer_args:  # Assignment of optimizer parameters.
+  lr: 0.001
+lr_scheduler: StepLR
+lr_scheduler_args:
+  step_size: 25
+  gamma: 0.1
+
+# == Evaluator ==
+evaluator: EventEvaluator  # Name of optimizer class.
+evaluator_args:  # Assignment of optimizer parameters.
+  values_json: '../data/gen_src/resource/values.json'
+  properties_json: '../data/gen_src/resource/properties.json'
+
+# == Dataset ==
+data_class_default: &data_class_default Event
+data_args_default: &data_args_default
+  data_root: '../data/trance'
+  values_json: '../data/gen_src/resource/values.json'
+  properties_json: '../data/gen_src/resource/properties.json'
+  img_aug: false
+  move_out_aug: false
+data_loader_args_default: &data_loader_args_default
+  batch_size: 128
+  num_workers: 12
+  pin_memory: true
+  shuffle: false
+
+train_data: *data_class_default
+train_data_args:
+  <<: *data_args_default
+  split: train
+  img_aug: true
+  move_out_aug: true
+train_data_loader_args:
+  <<: *data_loader_args_default
+  shuffle: true
+val_data: *data_class_default
+val_data_args:
+  <<: *data_args_default
+  split: val
+val_data_loader_args:
+  <<: *data_loader_args_default
+test_data: *data_class_default
+test_data_args:
+  <<: *data_args_default
+  split: test
+test_data_loader_args:
+  <<: *data_loader_args_default
+
+# == Logging ==
+output_root: '../train_log/TVR'  # Location to put train logs.
+log_steps: 10  # Step interval of standard output.
+# (Auto changed variables)
+log_dir: '../train_log/TVR/event/2021-03-06.event.ConcatResNet/log'                                # Full path of log dir
+ckpt_dir: '../train_log/TVR/event/2021-03-06.event.ConcatResNet/ckpt'                                # Full path of checkpoint dir
+tb_dir: '../train_log/TVR/event/2021-03-06.event.ConcatResNet/tb'                                # Full path of tensorboard dir
+result_path: '../train_log/TVR/event/2021-03-06.event.ConcatResNet/result/result.json'
+
+# == Testing Results ==

@@ -8,14 +8,14 @@ from pathlib import Path
 
 import numpy as np
 
-from .sample import balanced_sample
+from utils.sample import balanced_sample
 
 
 class SampleManager:
 
     def __init__(
             self, valid_init_vis, total_obj, valid_steps, valid_pairs,
-            valid_move_type, pair_split='.'):
+            valid_move_type, pair_split='.', vis_x=[-20, 20], vis_y=[-20, 20]):
 
         self.valid_init_vis = valid_init_vis
         self.valid_steps = valid_steps
@@ -23,6 +23,8 @@ class SampleManager:
         self.valid_pairs = valid_pairs
         self.valid_move_type = valid_move_type
         self.pair_split = pair_split
+        self.vis_x_min, self.vis_x_max = vis_x
+        self.vis_y_min, self.vis_y_max = vis_y
 
         self.top_pair = len(self.valid_pairs) // 2 + 1
         self.top_move_type = len(self.valid_move_type) // 2 + 1
@@ -207,23 +209,35 @@ class SampleManager:
             for i in range(1, len(pairs) + 1):
                 self.n_pair['gram_{}'.format(i)][' '.join(pairs[-i:])] += diff
 
-    def record_json(self, path):
-        with open(path, 'r') as f:
-            info = json.load(f)
+    def record_sample(self, sample):
         seq_trans = []
-        for trans in info['transformations']:
+        for trans in sample['transformations']:
             if trans['attr'] == 'position':
                 seq_trans.append(
                     (trans['obj_idx'], trans['pair'], trans['type']))
             else:
                 seq_trans.append((trans['obj_idx'], trans['pair']))
 
-        self.n_init_vis[
-            len(info['states'][0]['graphs']['Camera_Center']['left'])] += 1
+        self.n_init_vis[self.count_vis(sample['states'][0]['objects'])] += 1
         self.n_step[len(seq_trans)] += 1
         self.record_seq_trans(seq_trans)
         self.c_sample_load += 1
-        return info
+        return sample
+
+    def record_json(self, path):
+        with open(path, 'r') as f:
+            sample = json.load(f)
+        self.record_sample(sample)
+        return sample
+
+    def count_vis(self, objects):
+        n_vis = 0
+        for obj in objects:
+            x, y = obj['position']
+            if (self.vis_x_min <= x <= self.vis_x_max
+                    and self.vis_y_min <= y <= self.vis_y_max):
+                n_vis += 1
+        return n_vis
 
     def state(self):
         return {
@@ -238,10 +252,21 @@ class SampleManager:
         }
 
 
+# KEYS_INFO = {
+#     'simple': ['idx', 'states', 'transformations', ]
+# }
+
+KEYS_OBJECT = {
+    'simple': ['color', 'material', 'shape', 'size', 'position'],
+    'renderable': ['color', 'material', 'shape', 'size', 'position', 'rotation'],
+    'full': ['color', 'material', 'shape', 'size', 'position', 'rotation'],
+}
+
 class Recorder:
 
-    def __init__(self):
-        pass
+    def __init__(self, mode='full', ):
+        assert mode in ['simple', 'renderable', 'full', 'custom']
+        self.mode = mode
 
     def init(self, scene, idx):
         self.info = {

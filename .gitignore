@@ -1,6 +1,9 @@
 # Workspace
 .DS_Store
 .vscode/
+**/*.bak/
+**/*.bak
+train_log/
 
 # Python
 .ipynb_checkpoints/
