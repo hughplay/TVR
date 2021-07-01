@@ -26,7 +26,7 @@ The code for model training and evaluation is located in the `src` folder.
 
 ### Environments
 
-You can create an isloate python environment by running:
+You can create an isloated python environment by running:
 
 ```
 cd src
