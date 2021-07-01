@@ -57,7 +57,7 @@ python core.py train config/event.ConcatResNet.yaml
 python core.py train config/event.ConcatResNet.yaml --device 'cuda:0' --test
 
 # test only
-python core.py train config/event.ConcatResNet.yaml
+python core.py test config/event.ConcatResNet.yaml
 ```
 
 Notice: We fixed a bug in TRANCE, therefore, the performance on Event and View is slightly higher (0.03~0.06 on Acc) than the results reported in our CVPR paper.
