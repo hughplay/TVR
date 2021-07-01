@@ -24,6 +24,16 @@ If you are instrested in generating samples by yourselves or constructing a new 
 
 The code for model training and evaluation is located in the `src` folder.
 
+### Environments
+
+You can create an isloate python environment by running:
+
+```
+cd src
+conda create -n tvr python=3.7
+pip install -r requirements.txt
+```
+
 ### Preprocessing the data
 
 You should first download TRANCE from Kaggle, and then preprocess the data with the following command:
