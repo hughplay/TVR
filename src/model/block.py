@@ -105,7 +105,7 @@ class FCBlock(nn.Module):
 
     def __init__(self, c_in, c_out, act=None, dropout=None):
         super().__init__()
-        layers = [nn.Linear(c_in, c_in//2), nn.Linear(c_in//2, c_out]
+        layers = [nn.Linear(c_in, c_in//2), nn.Linear(c_in//2, c_out)]
         if act:
             layers.append(get_act(act))
         if dropout:
