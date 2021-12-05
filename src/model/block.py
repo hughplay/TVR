@@ -105,11 +105,11 @@ class FCBlock(nn.Module):
 
     def __init__(self, c_in, c_out, act=None, dropout=None):
         super().__init__()
-        layers = [nn.Linear(c_in, c_out)]
+        layers = [nn.Linear(c_in, c_in//2), nn.Linear(c_in//2, c_out]
         if act:
             layers.append(get_act(act))
         if dropout:
-            dropout = 0.5 if dropout is True else dropout
+            dropout = 0.4 if dropout is True else dropout
             layers.append(nn.Dropout(dropout))
         self.fc = nn.Sequential(*layers)
 
@@ -141,7 +141,7 @@ class FCBlocks(nn.Module):
 class ResNetBlock(nn.Module):
 
     def __init__(
-            self, arch='resnet18', avgpool=True, pretrained=False, c_in=3):
+            self, arch='resnet34', avgpool=True, pretrained=False, c_in=3):
         super().__init__()
 
         if c_in != 3:
@@ -182,7 +182,7 @@ class ResNetBlock(nn.Module):
 
 class VGGBlock(nn.Module):  
 
-    def __init__(self, arch='vgg11_bn', pretrained=False):
+    def __init__(self, arch='vgg16_bn', pretrained=False):
         super().__init__()
 
         model_func = getattr(vgg, arch)
