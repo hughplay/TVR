@@ -62,7 +62,7 @@ def preprocess(
     root = Path(directory)
     data_path = root / 'data.jsonl'
     image_dir = root / 'image'
-    h5_path = root / 'data.h5'
+    h5_path =  './data.h5'
 
     if h5_path.exists() and not force:
         print(f'Found existing {h5_path}. Use --force to overwrite.')
