@@ -1,0 +1,8 @@
+# @package _global_
+name: basic_resnet_subtract
+notes: "test ResNet-Subtract on the basic setting."
+
+defaults:
+  - override /dataset: basic
+  - override /model: single_resnet_subtract
+  - override /criterion: basic

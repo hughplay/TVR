@@ -1,0 +1,8 @@
+# @package _global_
+name: basic_bcnn
+notes: "test BCNN on the basic setting."
+
+defaults:
+  - override /dataset: basic
+  - override /model: single_bcnn
+  - override /criterion: basic

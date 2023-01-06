@@ -1,0 +1,8 @@
+# @package _global_
+name: event_cnn_concat
+notes: "test CNN-Concat on the event setting."
+
+defaults:
+  - override /dataset: event
+  - override /model: cnn_concat
+  - override /criterion: event

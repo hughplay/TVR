@@ -1,0 +1,39 @@
+_target_: src.dataset.trance.TRANCEDataModule
+
+batch_size: 128
+num_workers: 16
+pin_memory: true
+
+dataset_cfg:
+  problems:
+    train: basic
+    val: ${.train}
+    test: ${.train}
+  train:
+    data_file: "/data/trance/data.h5"
+    n_samples: null
+    read_raw_image: false
+    image_root: "/data/trance/image"
+    values_json: "/data/trance/values.json"
+    properties_json: "/data/trance/properties.json"
+    valid_attrs: ["position", "shape", "size", "color", "material"]
+    img_aug: true
+    move_out_aug: true
+  val:
+    data_file: ${..train.data_file}
+    read_raw_image: ${..train.read_raw_image}
+    image_root: ${..train.image_root}
+    values_json: ${..train.values_json}
+    properties_json: ${..train.properties_json}
+    valid_attrs: ${..train.valid_attrs}
+    img_aug: false
+    move_out_aug: false
+  test:
+    data_file: ${..train.data_file}
+    read_raw_image: ${..train.read_raw_image}
+    image_root: ${..train.image_root}
+    values_json: ${..train.values_json}
+    properties_json: ${..train.properties_json}
+    valid_attrs: ${..train.valid_attrs}
+    img_aug: false
+    move_out_aug: false

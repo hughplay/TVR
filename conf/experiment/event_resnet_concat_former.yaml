@@ -1,0 +1,8 @@
+# @package _global_
+name: event_resnet_concat_former
+notes: "test ResNet-Concat-Former on the event setting."
+
+defaults:
+  - override /dataset: event
+  - override /model: resnet_concat_former
+  - override /criterion: event

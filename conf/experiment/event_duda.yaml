@@ -1,0 +1,8 @@
+# @package _global_
+name: event_duda
+notes: "test DUDA on the event setting."
+
+defaults:
+  - override /dataset: event
+  - override /model: duda
+  - override /criterion: event

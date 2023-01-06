@@ -1,0 +1,22 @@
+\begin{table}[t]
+\centering
+\caption{Model and human performance on Basic, Event, and View. $\Delta$Acc is the accuracy difference between View and Event.}
+\label{tab:results}
+\begin{small}
+\begin{tabular}{lrrrrrrrrrrrrr}
+\toprule
+Model & \multicolumn{4}{r}{Basic} & \multicolumn{4}{r}{Event} & \multicolumn{4}{r}{View} & $\Delta$Acc \\
+ & ObjAcc & AttrAcc & ValAcc & Acc & AD & AND & LAcc & Acc & AD & AND & LAcc & Acc &  \\
+\midrule
+CNN$_{-}$-G & 0.9596 & 0.9954 & 0.9834 & 0.9440 & 1.5842 & 0.5217 & 0.4568 & 0.4419 & 2.2649 & 0.8851 & 0.2376 & 0.2300 & -0.2119 \\
+CNN$_{\oplus}$-G & 0.9570 & 0.9942 & 0.9798 & 0.9390 & 1.4416 & 0.4725 & 0.4961 & 0.4797 & 2.0671 & 0.7887 & 0.2889 & 0.2789 & -0.2008 \\
+BCNN-G & 0.9684 & 0.9946 & 0.9818 & 0.9524 & 1.1299 & 0.3623 & 0.5847 & 0.5610 & 1.2915 & 0.4437 & 0.4977 & 0.4749 & -0.0861 \\
+DUDA-G & 0.9534 & 0.9922 & 0.9838 & 0.9394 & 1.3184 & 0.4170 & 0.5612 & 0.5401 & 1.4943 & 0.5130 & 0.4837 & 0.4645 & -0.0756 \\
+ResNet$_{-}$-G & 0.9808 & \textbf{0.9982} & 0.9934 & 0.9744 & 1.0072 & 0.3108 & 0.6350 & 0.6057 & 1.0552 & 0.3564 & 0.5704 & 0.5454 & -0.0603 \\
+ResNet$_{\oplus}$-G & \textbf{0.9856} & 0.9980 & \textbf{0.9954} & \textbf{0.9814} & 1.0624 & 0.3336 & 0.6217 & 0.5932 & 1.1353 & 0.3760 & 0.5681 & 0.5426 & -0.0507 \\
+ResNet$_{-}$-T & nan & nan & nan & nan & \textbf{0.8389} & \textbf{0.2601} & \textbf{0.6865} & \textbf{0.6553} & \textbf{0.8832} & \textbf{0.2933} & \textbf{0.6324} & \textbf{0.6012} & -0.0541 \\
+ResNet$_{\oplus}$-T & nan & nan & nan & nan & 0.8873 & 0.2777 & 0.6743 & 0.6424 & 0.9260 & 0.3084 & 0.6243 & 0.5927 & \textbf{-0.0497} \\
+\bottomrule
+\end{tabular}
+\end{small}
+\end{table}

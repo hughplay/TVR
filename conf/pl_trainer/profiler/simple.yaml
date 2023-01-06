@@ -1,0 +1,3 @@
+_target_: pytorch_lightning.profiler.SimpleProfiler
+dirpath: "profiler"
+filename: "prof_simple"

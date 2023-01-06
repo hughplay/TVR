@@ -1,0 +1,8 @@
+# @package _global_
+name: basic_cnn_subtract
+notes: "test CNN-Subtract on the basic setting."
+
+defaults:
+  - override /dataset: basic
+  - override /model: single_cnn_subtract
+  - override /criterion: basic
