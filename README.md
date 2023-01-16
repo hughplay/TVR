@@ -1,9 +1,11 @@
 # TVR - Transformation driven Visual Reasoning
 
+<br>
+
 Official repository for ["Transformation driven Visual Reasoning"](https://github.com/hughplay/TVR).
 
 <!-- ![A fancy image here](docs/_static/imgs/logo.svg) -->
-<img src="imgs/web.svg" width="500">
+<img src="docs/_static/imgs/web.svg" width="500">
 
 **Figure:** *Given the initial state and the final state, the target is to infer the intermediate transformation.*
 
@@ -18,6 +20,8 @@ Official repository for ["Transformation driven Visual Reasoning"](https://githu
 [![](https://img.shields.io/badge/arXiv-2011.13160-b31b1b?style=flat-square)](https://arxiv.org/pdf/2011.13160.pdf)
 [![](https://img.shields.io/badge/PyTorch-ee4c2c?style=flat-square&logo=pytorch&logoColor=white)](https://pytorch.org/get-started/locally/)
 
+
+<br>
 
 ## Description
 
@@ -37,46 +41,85 @@ If you find this code useful, please consider to star this repo and cite us:
 }
 ```
 
+
+<br>
+
 ## Environment Setup
 
-You can create an isloated python environment by running:
+We use docker to manage the environment. You can build the docker image and enter the container with the following command:
+
+``` sh
+# build the docker image and launch the container
+python docker.py prepare
+# enter the container
+python docker.py
+```
+
+Please follow the prompts to set the variables such as `PROJECT`, `DATA_ROOT`, `LOG_ROOT`.
+
+
+<br>
+
+## Data Preparation
+
+Download TRANCE from Kaggle and put it under `DATA_ROOT/trance`. Then preprocess the data with the following command:
 
 ```
-cd src
-conda create -n tvr python=3.7
-pip install -r requirements.txt
+python scripts/preprocess /data/trance
 ```
 
-### Data Preparation
 
-You should first download TRANCE from Kaggle, and then preprocess the data with the following command:
-
-```
-python core.py preprocess </path/to/trance>
-```
+<br>
 
 ## Training & testing
 
-We provide experimental configurations in `src/config`.
-If you want to try you own models or modify some parameters, please check these configurations.
+Please refer to the scripts under `scripts/training` for training models.
 
-Currently, we only support single gpu training and testing.
+Example training script (execute inside the docker container):
 
 ``` bash
-# training
-python core.py train config/event.ConcatResNet.yaml
+python train.py experiment=event_cnn_concat logging.wandb.tags="[event, base]"
+```
 
-# training and testing on cuda:0
-python core.py train config/event.ConcatResNet.yaml --device 'cuda:0' --test
+Or, you can training multiple models with provided GPUs:
 
-# test only
-python core.py test config/event.ConcatResNet.yaml
+``` bash
+python scripts/batch_train.py scripts/training/train_models.sh --gpus 0,1,2,3
 ```
 
 Notice: We fixed a bug in TRANCE, therefore, the performance on Event and View is slightly higher (0.03~0.06 on Acc) than the results reported in our CVPR paper.
+
+
+<br>
+
+## Demo
+
+We provide a demo to explore the dataset and experiments.
+
+![](docs/_static/imgs/demo.png)
+
+To launch the demo, first launch the api server:
+
+```
+uvicorn src.demo.api_server.main:app --host 0.0.0.0 --reload
+```
+
+Then launch the ui in another terminal window (recommend tmux):
+
+``` sh
+cd src/demo/ui
+yarn
+yarn dev
+```
+
+<br>
 
 ## LICENSE
 
 The code is licensed under the [MIT license](./LICENSE) and the TRANCE dataset is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
 
 Notice: Some materials are directly inherited from [CLEVR](https://github.com/facebookresearch/clevr-dataset-gen) which are licensed under BSD License. More details can be found in [this document](data/gen_src/resource/README.md).
+
+<br>
+
+*This is a project based on [DeepCodebase](https://github.com/hughplay/DeepCodebase) template.*

@@ -37,6 +37,7 @@ RUN pip install --no-cache-dir -r /tmp/requirements.txt \
 
 # COPY .localrc
 COPY misc/.localrc /root
+RUN echo ". ~/.localrc" >> ~/.zshrc
 
 
 # Add a user with the same UID and GID as the host user, to prevent privilege issues.

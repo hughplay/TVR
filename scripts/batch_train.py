@@ -96,10 +96,9 @@ def main(commands, gpus, logdir):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--script",
+        "script",
         type=str,
-        default="scripts/training/sota_v2_ablation.sh",
-        help="Path to script to be run",
+        help="Path to script to be run. Each line is a command.",
     )
     parser.add_argument("--gpus", type=str, default=None, help="GPUs to use")
     parser.add_argument(

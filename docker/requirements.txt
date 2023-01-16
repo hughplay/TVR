@@ -55,6 +55,7 @@ h5py==3.2.1     # loading data
 jsonlines       # for reading and writing jsonl files
 # ray             # for distributed running of tasks
 # gpustat         # for getting GPU usage
+fastapi[all]
 
 # =============================================
 # Linters
