@@ -3,8 +3,22 @@
 ## TODO
 
 
+- [ ] other scripts
+    - [ ] preprocess
+        - copy properties.json and values.json to /data/trance
+        - ~~reading h5py is faster than reading raw images for training, but not much, only seconds for each epoch~~, previous code has bug
+        - speed is nearly the same, I believe data reading is not the bottleneck
+    - [ ] gen_rc
 
 ## Currently Working On
+
+- [x] Demo to show datasets and Experiments
+    - [x] API to serve datasets
+    - [x] API to serve experiments
+    - [ ] ~~fill intermediate states~~
+
+
+## 2023-01-09 17:20:10
 
 - [x] merge tvr and real tvr to DeepCodebase Framework.
     - [x] dataset
@@ -28,15 +42,9 @@
 - [x] test half precision
     - no speed up, weird
 - [x] add transformer based model
-- [ ] other scripts
-    - [ ] preprocess
-        - copy properties.json and values.json to /data/trance
-        - ~~reading h5py is faster than reading raw images for training, but not much, only seconds for each epoch~~, previous code has bug
-        - speed is nearly the same, I believe data reading is not the bottleneck
-    - [ ] gen_rc
 - change primary models from concat to subtract
-    - [ ] reinforce ablation
-    - [ ] scaling data ablation
+    - [x] reinforce ablation
+    - [x] scaling data ablation
 
 Issues:
 

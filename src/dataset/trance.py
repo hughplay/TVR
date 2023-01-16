@@ -1,4 +1,5 @@
 import json
+from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -14,6 +15,62 @@ from .components.vectorizer import Vectorizer
 
 CURRENT_DIR = Path(__file__).parent
 PROJECT_DIR = CURRENT_DIR.parent.parent
+DEFAULT_VALUES_JSON = PROJECT_DIR / "trance/resource/values.json"
+DEFAULT_PROPERTIES_JSON = PROJECT_DIR / "trance/resource/properties.json"
+
+
+class ProblemName(str, Enum):
+    basic = "basic"
+    event = "event"
+    view = "view"
+
+
+class SplitName(str, Enum):
+    train = "train"
+    val = "val"
+    test = "test"
+
+
+class TRANCEAPI:
+    def __init__(
+        self,
+        data_file: str = "/data/trance.data.h5",
+    ):
+        self.data_file = Path(data_file)
+        self.keys = {}
+        with h5py.File(self.data_file, "r") as f:
+            self.keys["basic"] = {}
+            self.keys["event"] = {}
+            for item in SplitName:
+                split = item.value
+                self.keys["basic"][split] = eval(f[split]["basic_keys"][()])
+                self.keys["event"][split] = eval(f[split]["keys"][()])
+        self.vectorizer = Vectorizer(
+            values_json=DEFAULT_VALUES_JSON,
+            properties_json=DEFAULT_PROPERTIES_JSON,
+        )
+
+    def get(self, problem: str, split: str, idx: int):
+        problem = "basic" if problem == "basic" else "event"
+        key = self.keys[problem][split][idx]
+        with h5py.File(self.data_file, "r") as f:
+            data = json.loads(f[split]["data"][key][()])
+        return data
+
+    def parse(self, trans: List):
+        return self.vectorizer.vec2multitrans(trans)
+
+    @property
+    def summary(self):
+        summary = {}
+        for problem in ProblemName:
+            problem = problem.value
+            summary[problem] = {}
+            for item in SplitName:
+                split = item.value
+                map_problem = "basic" if problem == "basic" else "event"
+                summary[problem][split] = len(self.keys[map_problem][split])
+        return summary
 
 
 class BaseDataset(Dataset):
@@ -24,8 +81,8 @@ class BaseDataset(Dataset):
         read_raw_image: bool = False,
         image_root: str = "/data/trance/image",
         split: str = "train",
-        values_json: str = PROJECT_DIR / "trance/resource/values.json",
-        properties_json: str = PROJECT_DIR / "trance/resource/properties.json",
+        values_json: str = DEFAULT_VALUES_JSON,
+        properties_json: str = DEFAULT_PROPERTIES_JSON,
         valid_attrs: List[str] = [
             "position",
             "shape",
@@ -88,6 +145,11 @@ class BaseDataset(Dataset):
             img = img.resize((resize_w, resize_h))
         return img
 
+    def get_meta(self, idx):
+        with h5py.File(self.data_file, "r") as f:
+            meta = json.loads(f[self.split]["data"][self.keys[idx]][()])
+        return meta
+
     def transform(self, *imgs, translation=0.05):
         translate = list(
             translation
@@ -115,8 +177,7 @@ class Basic(BaseDataset):
                 self.keys = self.keys[: self.n_samples]
 
     def extract_info(self, idx):
-        with h5py.File(self.data_file, "r") as f:
-            sample_info = json.loads(f[self.split]["data"][self.keys[idx]][()])
+        sample_info = self.get_meta(idx)
         init, fin = sample_info["states"][0], sample_info["states"][-1]
 
         init_img_name = init["images"]["Camera_Center"]
@@ -157,8 +218,7 @@ class Event(BaseDataset):
         self.max_step = max_step
 
     def extract_info(self, idx, final_view="Camera_Center"):
-        with h5py.File(self.data_file, "r") as f:
-            sample_info = json.loads(f[self.split]["data"][self.keys[idx]][()])
+        sample_info = self.get_meta(idx)
         init, fin = sample_info["states"][0], sample_info["states"][-1]
 
         init_img_name = init["images"]["Camera_Center"]
