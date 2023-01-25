@@ -1,0 +1,78 @@
+{
+  "shape": {
+    "cube": "SmoothCube_v2",
+    "sphere": "Sphere",
+    "cylinder": "SmoothCylinder"
+  },
+  "color": {
+    "gray": [87, 87, 87],
+    "red": [173, 35, 35],
+    "blue": [42, 75, 215],
+    "green": [29, 105, 20],
+    "brown": [129, 74, 25],
+    "purple": [129, 38, 192],
+    "cyan": [41, 208, 208],
+    "yellow": [255, 238, 51]
+  },
+  "material": {
+    "rubber": "Rubber",
+    "metal": "Metal",
+    "glass": "Glass"
+  },
+  "size": {
+    "large": 0.9,
+    "medium": 0.6,
+    "small": 0.3
+  },
+  "position": {
+    "direction": {
+      "behind": [1, 0],
+      "front": [-1, 0],
+      "right": [0, 1],
+      "left": [0, -1],
+      "behind-right": [1, 1],
+      "behind-left": [1, -1],
+      "front-right": [-1, 1],
+      "front-left": [-1, -1]
+    },
+    "step": [1, 2]
+  },
+  "coordinate": {
+    "unit": 0.15,
+    "step": 1.5,
+    "min_gap": 0.15,
+    "x_min": -6,
+    "x_max": 6,
+    "y_min": -6,
+    "y_max": 6,
+    "vis_x_min": -3,
+    "vis_x_max": 3,
+    "vis_y_min": -3,
+    "vis_y_max": 3
+  },
+  "seg_color": {
+    "Object_0": [135, 197, 176],
+    "Object_1": [123, 3, 170],
+    "Object_2": [108, 56, 167],
+    "Object_3": [90, 167, 112],
+    "Object_4": [226, 120, 211],
+    "Object_5": [50, 192, 73],
+    "Object_6": [212, 238, 233],
+    "Object_7": [255, 40, 146],
+    "Object_8": [136, 76, 117],
+    "Object_9": [58, 73, 225]
+  },
+  "render_color": {
+    "Object_0": [192, 228, 216],
+    "Object_1": [185, 28, 213],
+    "Object_2": [174, 129, 212],
+    "Object_3": [160, 212, 177],
+    "Object_4": [242, 182, 235],
+    "Object_5": [122, 225, 146],
+    "Object_6": [235, 247, 245],
+    "Object_7": [255, 110, 199],
+    "Object_8": [193, 148, 180],
+    "Object_9": [131, 146, 241],
+    "Background": [64, 64, 64]
+  }
+}

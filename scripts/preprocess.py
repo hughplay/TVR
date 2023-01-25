@@ -53,6 +53,24 @@ def read_image(path, resize_w, resize_h):
     return img
 
 
+def copy_resources(target_dir):
+    RESOURCE_PROPERTIES = Path("trance/resources/properties.json")
+    RESOURCE_VALUES = Path("trance/resources/values.json")
+
+    target_dir = Path(target_dir)
+    target_dir.mkdir(exist_ok=True, parents=True)
+
+    target_properties = target_dir / "properties.json"
+    target_values = target_dir / "values.json"
+
+    if not target_properties.exists():
+        with open(target_properties, "w") as f:
+            f.write(RESOURCE_PROPERTIES.read_text())
+    if not target_values.exists():
+        with open(target_values, "w") as f:
+            f.write(RESOURCE_VALUES.read_text())
+
+
 def preprocess(
     directory,
     force=False,
@@ -114,6 +132,7 @@ if __name__ == "__main__":
     preprocess_parser(parser)
 
     args = parser.parse_args()
+    copy_resources(args.dataroot)
     preprocess(
         args.dataroot,
         args.force,

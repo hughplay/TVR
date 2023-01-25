@@ -90,32 +90,26 @@ def execute(command):
         p.wait()
 
 
-def prepare_parser():
-    parser = argparse.ArgumentParser(
-        description="The core script of experiment management."
-    )
-    parser.add_argument("action", nargs="?", default="enter")
-    parser.add_argument("-b", "--build", action="store_true", default=False)
-    parser.add_argument("--root", action="store_true", default=False)
-
-    return parser
-
-
 def main(args):
-    _set_env(verbose=(args.action == "prepare"))
+    _set_env(verbose=(args.action == "start" or args.action == "startd"))
 
-    service_name = "project"
-    if args.action == "prepare":
-        command = "docker-compose up -d"
+    SHELL = "zsh" if args.service == "project" else "bash"
+
+    if args.action == "start" or args.action == "startd":
+        command = "docker-compose up"
+        if args.action == "startd":
+            command += " -d"
         if args.build:
             command += " --build --force-recreate"
+        command += f" {args.service}"
     elif args.action == "enter":
         if args.root:
-            command = f"docker-compose exec -u root {service_name} zsh"
+            command = f"docker-compose exec -u root {args.service} {SHELL}"
         else:
-            command = f"docker-compose exec {service_name} zsh"
+            command = f"docker-compose exec {args.service} {SHELL}"
     else:
         command = f"docker-compose {args.action}"
+    print(f"> {command}\n")
     execute(command)
 
 
@@ -195,11 +189,19 @@ def _set_env(env_path=DEFAULT_ENV_PATH, verbose=False):
     e.save()
 
     if verbose:
-        print(f"Your setting ({env_path}):\n{e}")
+        print(f"Your setting ({env_path}):\n{e}\n")
     return e
 
 
 if __name__ == "__main__":
-    parser = prepare_parser()
+    parser = argparse.ArgumentParser(
+        description="The core script of experiment management."
+    )
+    parser.add_argument("action", nargs="?", default="enter")
+    parser.add_argument("-b", "--build", action="store_true", default=False)
+    parser.add_argument("--root", action="store_true", default=False)
+    parser.add_argument("--service", default="project")
+
     args = parser.parse_args()
+
     main(args)
