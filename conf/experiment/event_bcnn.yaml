@@ -1,0 +1,8 @@
+# @package _global_
+name: event_bcnn
+notes: "test BCNN on the event setting."
+
+defaults:
+  - override /dataset: event
+  - override /model: bcnn
+  - override /criterion: event

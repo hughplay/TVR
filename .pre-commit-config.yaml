@@ -1,0 +1,66 @@
+# Pre-commit: https://pre-commit.com/
+# Git hook scripts are useful for identifying simple issues before submission to
+# code review.
+#
+#
+# Quick Start
+# 1. Install pre-commit:
+#   pip install pre-commit
+# 2. Install git hook scripts, and pre-commit will run automatically on git commit:
+#   pre-commit install
+# 3. (optional) Run against all the files
+#   pre-commit run -a
+# 4. git commit and pre-commit will run automatically
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
+    hooks:
+      # list of supported hooks: https://pre-commit.com/hooks.html
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ["--maxkb=3500"]
+      - id: check-case-conflict
+      - id: debug-statements
+      - id: detect-private-key
+
+  # python code formatting
+  - repo: https://github.com/psf/black
+    rev: 22.3.0
+    hooks:
+      - id: black
+        args: [--line-length, "80"]
+
+  # python import sorting
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+        args: ["--profile", "black", "--filter-files"]
+
+  # python docstring formatting
+  - repo: https://github.com/myint/docformatter
+    rev: v1.4
+    hooks:
+      - id: docformatter
+        args: [--in-place, --wrap-summaries, "80", --wrap-descriptions, "80"]
+
+  # yaml formatting
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v2.5.1
+    hooks:
+      - id: prettier
+        types: [yaml]
+
+  # python code analysis
+  - repo: https://github.com/PyCQA/flake8
+    rev: 4.0.1
+    hooks:
+      - id: flake8
+
+  # jupyter notebook cell output clearing
+  # - repo: https://github.com/kynan/nbstripout
+  #   rev: 0.5.0
+  #   hooks:
+  #     - id: nbstripout

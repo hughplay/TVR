@@ -1,0 +1,7 @@
+_target_: src.model.trancenet.SingleSubtractCNN
+height: 120
+width: 160
+cnn_c_kernels: [16, 32, 64, 64]
+cnn_s_kernels: [5, 3, 3, 3]
+fc_img_en: [128]
+fc_fusion: [128]

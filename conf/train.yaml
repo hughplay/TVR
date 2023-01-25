@@ -1,0 +1,51 @@
+defaults:
+  - _self_
+  - dataset: event
+  - pipeline: reason
+  - model: resnet_concat
+  - criterion: event
+  - optim: adam
+  - scheduler: step
+  - pl_trainer: default
+  - callbacks: [checkpoint, lr_monitor, rich]
+  - logging: default
+  - logdir: default
+
+  # experiment configs allow for version control of specific configurations
+  # e.g. best hyperparameters for each combination of model and datamodule
+  - experiment: null
+
+  # debugging config (enable through command line, e.g. `python train.py debug=default)
+  # check `conf/debug` for multiple debugging options
+  - debug: null
+
+  # optional local config for machine/user specific settings
+  # it's optional since it doesn't need to exist and is excluded from version control
+  - optional local: default.yaml
+
+  # enable color logging
+  - override hydra/hydra_logging: colorlog
+  - override hydra/job_logging: colorlog
+
+# evaluate on test set, using best model weights achieved during training
+# lightning chooses best weights based on the metric specified in checkpoint callback
+run_test: true
+
+# set seed to make experiments reproducible
+seed: 0
+
+# project name, set from .env, will be used to generate log directory and assign wandb project
+project: ${oc.env:PROJECT}
+
+# default name for the experiment
+# (you can overwrite this name in experiment configs)
+name: default
+
+# expriment id is used to name logdir, sweep subdir, wandb version
+exp_id: ${tail:${dataset._target_}}.${tail:${model._target_}}.${tail:${criterion._target_}}.${now:%Y-%m-%d_%H-%M-%S}
+
+# notes about the experiment
+notes: ""
+
+# resume experiment from checkpoint
+resume_ckpt: null

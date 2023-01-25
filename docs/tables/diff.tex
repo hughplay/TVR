@@ -1,0 +1,17 @@
+\begin{table}[t]
+\centering
+\caption{Results of ResNet$_{-}$-T trained using REINFORCE~\cite{williams1992simple} with different rewards on Event.}
+\label{tab:rl}
+\begin{small}
+\begin{tabular}{lrrrr}
+\toprule
+Model & AD & AND & LAcc & Acc \\
+\midrule
+ResNet$_{-}$-T & 0.8389 & 0.2601 & 0.6865 & 0.6553 \\
+\hspace{0.2em} + \textit{corr} & 0.7711 & 0.2367 & 0.7061 & 0.6729 \\
+\hspace{0.2em} + \textit{dist} & 0.7741 & 0.2370 & 0.7065 & 0.6734 \\
+\hspace{0.2em} + \textit{corr \& dist} & \textbf{0.7681} & \textbf{0.2354} & \textbf{0.7069} & \textbf{0.6740} \\
+\bottomrule
+\end{tabular}
+\end{small}
+\end{table}

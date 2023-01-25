@@ -1,0 +1,4 @@
+# update on each epoch
+_target_: torch.optim.lr_scheduler.StepLR
+step_size: 25
+gamma: 0.1

@@ -1,0 +1,10 @@
+_target_: src.criterion.reason.ReasonCriterion
+loss:
+  _target_: src.criterion.reason.BasicLoss
+evaluator:
+  _target_: src.criterion.reason.EventEvaluator
+  values_json: "/data/trance/values.json"
+  properties_json: "/data/trance/properties.json"
+recorder:
+  _target_: src.criterion.reason.EventRecorder
+compute_metrics_during_training: false

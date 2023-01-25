@@ -1,0 +1,17 @@
+# Using gpus to train the model
+accelerator: gpu
+devices: 1
+strategy: ddp
+sync_batchnorm: false
+deterministic: true
+
+precision: 32
+accumulate_grad_batches: 1
+
+profiler: null
+weights_summary: top
+
+max_epochs: 50
+val_check_interval: 1.0
+
+default_root_dir: ./

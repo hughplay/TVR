@@ -1,0 +1,8 @@
+# @package _global_
+name: basic_resnet_concat
+notes: "test ResNet-Concat on the basic setting."
+
+defaults:
+  - override /dataset: basic
+  - override /model: single_resnet_concat
+  - override /criterion: basic

@@ -1,0 +1,8 @@
+# @package _global_
+name: basic_duda
+notes: "test DUDA on the basic setting."
+
+defaults:
+  - override /dataset: basic
+  - override /model: single_duda
+  - override /criterion: basic

@@ -1,0 +1,8 @@
+# @package _global_
+name: event_resnet_subtract
+notes: "test ResNet-Subtract on the event setting."
+
+defaults:
+  - override /dataset: event
+  - override /model: resnet_subtract
+  - override /criterion: event

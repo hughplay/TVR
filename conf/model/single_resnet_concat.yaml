@@ -1,0 +1,6 @@
+_target_: src.model.trancenet.SingleConcatResNet
+arch: resnet18
+height: 120
+width: 160
+fc_img_en: [128]
+fc_fusion: [128]

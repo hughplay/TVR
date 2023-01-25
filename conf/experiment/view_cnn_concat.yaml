@@ -1,0 +1,8 @@
+# @package _global_
+name: view_cnn_concat
+notes: "test CNN-Concat on the view setting."
+
+defaults:
+  - override /dataset: view
+  - override /model: cnn_concat
+  - override /criterion: view

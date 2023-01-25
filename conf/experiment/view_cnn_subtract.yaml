@@ -1,0 +1,8 @@
+# @package _global_
+name: view_cnn_subtract
+notes: "test CNN-Subtract on the view setting."
+
+defaults:
+  - override /dataset: view
+  - override /model: cnn_subtract
+  - override /criterion: view

@@ -1,0 +1,33 @@
+{
+  "name": "ui",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@codemirror/commands": "^0.20.0",
+    "@codemirror/lang-json": "^0.20.0",
+    "@codemirror/language": "^0.20.0",
+    "@codemirror/state": "^0.20.0",
+    "@codemirror/view": "^0.20.4",
+    "ant-design-vue": "^3.2.15",
+    "axios": "^1.2.2",
+    "lodash": "^4.17.21",
+    "svgsaver": "^0.9.0",
+    "two.js": "0.7.0-stable.1",
+    "vue": "^3.2.45",
+    "vue-router": "4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.20",
+    "tailwindcss": "^3.2.4",
+    "unplugin-vue-components": "^0.22.12",
+    "vite": "^4.0.0"
+  }
+}

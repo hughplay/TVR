@@ -1,0 +1,6 @@
+_target_: src.model.trancenet.SingleBCNN
+arch: vgg11_bn
+height: 120
+width: 160
+fc_img_en: [128]
+fc_fusion: [128]

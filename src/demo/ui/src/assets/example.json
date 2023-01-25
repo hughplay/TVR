@@ -1,0 +1,254 @@
+{
+    "idx": 0,
+    "states": [
+        {
+            "objects": [
+                {
+                    "color": "gray",
+                    "material": "metal",
+                    "shape": "cylinder",
+                    "size": "small",
+                    "position": [
+                        -19,
+                        37
+                    ]
+                },
+                {
+                    "color": "purple",
+                    "material": "metal",
+                    "shape": "cylinder",
+                    "size": "large",
+                    "position": [
+                        40,
+                        40
+                    ]
+                },
+                {
+                    "color": "yellow",
+                    "material": "glass",
+                    "shape": "cube",
+                    "size": "small",
+                    "position": [
+                        0,
+                        -14
+                    ]
+                },
+                {
+                    "color": "blue",
+                    "material": "metal",
+                    "shape": "cylinder",
+                    "size": "large",
+                    "position": [
+                        -18,
+                        -2
+                    ]
+                },
+                {
+                    "color": "blue",
+                    "material": "glass",
+                    "shape": "cube",
+                    "size": "large",
+                    "position": [
+                        -1,
+                        17
+                    ]
+                },
+                {
+                    "color": "blue",
+                    "material": "metal",
+                    "shape": "cylinder",
+                    "size": "medium",
+                    "position": [
+                        20,
+                        24
+                    ]
+                },
+                {
+                    "color": "blue",
+                    "material": "rubber",
+                    "shape": "sphere",
+                    "size": "large",
+                    "position": [
+                        -38,
+                        25
+                    ]
+                },
+                {
+                    "color": "gray",
+                    "material": "glass",
+                    "shape": "cube",
+                    "size": "large",
+                    "position": [
+                        24,
+                        2
+                    ]
+                },
+                {
+                    "color": "yellow",
+                    "material": "metal",
+                    "shape": "sphere",
+                    "size": "medium",
+                    "position": [
+                        37,
+                        -40
+                    ]
+                },
+                {
+                    "color": "brown",
+                    "material": "glass",
+                    "shape": "cube",
+                    "size": "large",
+                    "position": [
+                        31,
+                        -28
+                    ]
+                }
+            ],
+            "images": {
+                "Camera_Center": "/src/assets/img_000000-init.C.png"
+            }
+        },
+        {
+            "objects": [
+                {
+                    "color": "gray",
+                    "material": "metal",
+                    "shape": "cylinder",
+                    "size": "small",
+                    "position": [
+                        -19,
+                        37
+                    ]
+                },
+                {
+                    "color": "purple",
+                    "material": "metal",
+                    "shape": "cylinder",
+                    "size": "large",
+                    "position": [
+                        40,
+                        40
+                    ]
+                },
+                {
+                    "color": "cyan",
+                    "material": "glass",
+                    "shape": "cube",
+                    "size": "small",
+                    "position": [
+                        20,
+                        -14
+                    ]
+                },
+                {
+                    "color": "blue",
+                    "material": "metal",
+                    "shape": "cylinder",
+                    "size": "large",
+                    "position": [
+                        -18,
+                        -2
+                    ]
+                },
+                {
+                    "color": "brown",
+                    "material": "glass",
+                    "shape": "cube",
+                    "size": "large",
+                    "position": [
+                        -1,
+                        17
+                    ]
+                },
+                {
+                    "color": "blue",
+                    "material": "metal",
+                    "shape": "cylinder",
+                    "size": "medium",
+                    "position": [
+                        20,
+                        24
+                    ]
+                },
+                {
+                    "color": "blue",
+                    "material": "rubber",
+                    "shape": "sphere",
+                    "size": "large",
+                    "position": [
+                        -38,
+                        25
+                    ]
+                },
+                {
+                    "color": "gray",
+                    "material": "glass",
+                    "shape": "cube",
+                    "size": "large",
+                    "position": [
+                        24,
+                        2
+                    ]
+                },
+                {
+                    "color": "yellow",
+                    "material": "metal",
+                    "shape": "sphere",
+                    "size": "medium",
+                    "position": [
+                        37,
+                        -40
+                    ]
+                },
+                {
+                    "color": "brown",
+                    "material": "glass",
+                    "shape": "cube",
+                    "size": "large",
+                    "position": [
+                        31,
+                        -28
+                    ]
+                }
+            ],
+            "images": {
+                "Camera_Left": "/src/assets/img_000000-fin.L.png",
+                "Camera_Right": "/src/assets/img_000000-fin.R.png",
+                "Camera_Center": "/src/assets/img_000000-fin.C.png"
+            }
+        }
+    ],
+    "transformations": [
+        {
+            "obj_idx": 2,
+            "attr": "color",
+            "val": "cyan",
+            "options": [
+                "cyan"
+            ]
+        },
+        {
+            "obj_idx": 2,
+            "attr": "position",
+            "val": [
+                "behind",
+                2
+            ],
+            "options": [
+                [
+                    "behind",
+                    2
+                ]
+            ],
+            "type": "inner"
+        },
+        {
+            "obj_idx": 4,
+            "attr": "color",
+            "val": "brown",
+            "options": [
+                "brown"
+            ]
+        }
+    ]
+}

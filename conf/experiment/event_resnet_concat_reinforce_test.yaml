@@ -1,0 +1,25 @@
+# @package _global_
+name: event_resnet_concat_reinforce
+notes: "test ResNet-Concat on the event setting with REINFORCE."
+
+defaults:
+  - override /dataset: event
+  - override /model: resnet_concat
+  - override /criterion: event_reinforce
+  - override /optim: adamw
+  - override /scheduler: constant_warmup
+
+model:
+  pretrained: null
+  state_dict_prefix: "model."
+
+criterion:
+  loss:
+    reward_type: acc_dist
+  compute_metrics_during_training: true
+
+pl_trainer:
+  max_epochs: 10
+
+optim:
+  lr: 0.0005

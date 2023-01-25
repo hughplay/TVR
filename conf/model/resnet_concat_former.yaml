@@ -1,0 +1,10 @@
+_target_: src.model.trancenet.ConcatResNetFormer
+height: 120
+width: 160
+teacher_forcing: true
+c_pair_embed: 8
+max_step: 4
+c_hidden: [128]
+arch: "resnet18"
+fc_img_en: [128]
+fc_fusion: [128]

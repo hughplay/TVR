@@ -1,0 +1,108 @@
+version: "3.9"
+services:
+  project:
+    container_name: ${PROJECT}_${USER_NAME}
+    runtime: nvidia
+    build:
+      context: docker/
+      dockerfile: Dockerfile
+      args:
+        - USER_ID=${UID}
+        - GROUP_ID=${GID}
+        - USER_NAME=${USER_NAME}
+    image: ${PROJECT}:${USER_NAME}
+    environment:
+      - TZ=Asia/Shanghai
+      - TORCH_HOME=/data/torch_model
+      - TRANSFORMERS_CACHE=/data/pretrain/transformers
+      - CLIP_CACHE=/data/pretrain/clip
+
+    hostname: docker
+
+    ipc: host
+
+    # directly mapping ports in container to host
+    network_mode: host
+
+    working_dir: /project
+
+    command: ["sleep", "infinity"]
+
+    # mount the <directory in host> to the <directory in container>
+    # add more mounts here if you need
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # run docker in docker
+      - ${CODE_ROOT}:/project
+      - ${DATA_ROOT}:/data
+      - ${LOG_ROOT}:/log
+      - type: bind
+        source: ${CACHE_ZSH_HISTORY}
+        target: /home/${USER_NAME}/.zsh_history
+
+  blender:
+    container_name: ${PROJECT}_${USER_NAME}_blender
+    runtime: nvidia
+    build:
+      context: trance/
+      dockerfile: Dockerfile
+      args:
+        - USER_ID=${UID}
+        - GROUP_ID=${GID}
+        - USER_NAME=${USER_NAME}
+    image: ${PROJECT}_blender:${USER_NAME}
+    environment:
+      - TZ=Asia/Shanghai
+
+    hostname: docker
+
+    ipc: host
+
+    # directly mapping ports in container to host
+    network_mode: host
+
+    working_dir: /project
+
+    command: ["sleep", "infinity"]
+
+    # mount the <directory in host> to the <directory in container>
+    # add more mounts here if you need
+    volumes:
+      - ${CODE_ROOT}/trance:/project
+      - ${DATA_ROOT}:/data
+      - ${LOG_ROOT}:/log
+
+  demo:
+    container_name: ${PROJECT}_${USER_NAME}_demo
+    build:
+      context: docker/
+      dockerfile: Dockerfile.node
+
+      args:
+        - USER_ID=${UID}
+        - GROUP_ID=${GID}
+        - USER_NAME=${USER_NAME}
+    image: ${PROJECT}_demo:${USER_NAME}
+    environment:
+      - TZ=Asia/Shanghai
+
+    hostname: docker
+
+    ipc: host
+
+    # directly mapping ports in container to host
+    network_mode: host
+
+    working_dir: /project
+
+    # if you locate in China, you can use taobao mirror to speed up
+    command:
+      [
+        "bash",
+        "-c",
+        "npm config set registry https://registry.npm.taobao.org && yarn && yarn dev --host",
+      ]
+    # else you can use the default npm registry
+    # command: ["bash", "-c", "yarn && yarn dev --host"]
+
+    volumes:
+      - ${CODE_ROOT}/src/demo/ui:/project

@@ -1,0 +1,12 @@
+checkpoint:
+  _target_: pytorch_lightning.callbacks.ModelCheckpoint
+
+  dirpath: checkpoints
+  filename: "{epoch:03d}-{step}"
+  save_last: true
+
+  monitor: "val/acc"
+  mode: "max"
+  save_top_k: 1
+
+  verbose: true

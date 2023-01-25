@@ -1,0 +1,67 @@
+# =============================================
+# Lightning
+# =============================================
+torch>=1.8.1
+torchvision>=0.9.1
+pytorch-lightning==1.6.5
+torchmetrics
+
+# =============================================
+# Hydra
+# =============================================
+hydra-core==1.1.0
+hydra-colorlog
+# hydra-optuna-sweeper>=1.1.0
+omegaconf==2.1.0
+
+# =============================================
+# Logging
+# =============================================
+wandb
+
+# =============================================
+# Common Used Tools
+# =============================================
+einops
+pandas
+Jinja2
+# openpyxl==3.0.10
+# matplotlib==3.5.2
+# scikit-learn==1.1.1
+plotly
+kaleido
+
+# =============================================
+# Computer Vision
+# =============================================
+# opencv-python
+
+# =============================================
+# Nautral Language Processing
+# =============================================
+transformers
+# spacy           # for text preprocessing
+
+# =============================================
+# Utils
+# =============================================
+python-dotenv   # loading env variables from .env file
+rich            # beautiful text formatting in terminal
+pytest          # tests
+sh              # for running bash commands in some tests
+h5py==3.2.1     # loading data
+# ipython         # convenient interactive shell
+# jupyterlab      # JupyterLab to run Jupyter Notebooks
+jsonlines       # for reading and writing jsonl files
+# ray             # for distributed running of tasks
+# gpustat         # for getting GPU usage
+fastapi[all]
+
+# =============================================
+# Linters
+# =============================================
+pre-commit      # hooks for applying linters on commit
+black           # code formatting
+isort           # import sorting
+flake8          # code analysis
+nbstripout      # remove output from jupyter notebooks

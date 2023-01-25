@@ -1,0 +1,28 @@
+{
+  "shape": ["cube", "sphere", "cylinder"],
+  "size": ["large", "medium", "small"],
+  "position": {
+    "direction": [
+      "front",
+      "behind",
+      "left",
+      "right",
+      "front-left",
+      "front-right",
+      "behind-left",
+      "behind-right"
+    ],
+    "step": [1, 2]
+  },
+  "material": ["rubber", "metal", "glass"],
+  "color": [
+    "gray",
+    "red",
+    "blue",
+    "green",
+    "brown",
+    "purple",
+    "cyan",
+    "yellow"
+  ]
+}

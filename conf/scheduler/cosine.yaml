@@ -1,0 +1,3 @@
+# update on epoch
+_target_: torch.optim.lr_scheduler.CosineAnnealingLR
+T_max: 20

@@ -1,0 +1,15 @@
+# @package _global_
+
+# runs with execution time profiling
+
+defaults:
+  - default.yaml
+  - /pl_trainer/profiler: pytorch
+
+pl_trainer:
+  max_epochs: 1
+  limit_train_batches: 0.01
+
+dataset:
+  # num_workers: 0 # debuggers don't like multiprocessing
+  pin_memory: True # disable gpu memory pin
