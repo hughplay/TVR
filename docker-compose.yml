@@ -26,7 +26,12 @@ services:
 
     working_dir: /project
 
-    command: ["sleep", "infinity"]
+    command:
+      [
+        "/bin/bash",
+        "-c",
+        "/bin/rsync -avP /${USER_NAME}_home_bak/ /home/${USER_NAME} --ignore-existing && . /home/${USER_NAME}/.bashrc && sleep infinity",
+      ]
 
     # mount the <directory in host> to the <directory in container>
     # add more mounts here if you need
@@ -36,8 +41,8 @@ services:
       - ${DATA_ROOT}:/data
       - ${LOG_ROOT}:/log
       - type: bind
-        source: ${CACHE_ZSH_HISTORY}
-        target: /home/${USER_NAME}/.zsh_history
+        source: ${CONTAINER_HOME}
+        target: /home/${USER_NAME}
 
   blender:
     container_name: ${PROJECT}_${USER_NAME}_blender
