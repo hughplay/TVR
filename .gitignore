@@ -3,7 +3,7 @@
 log/
 data/
 conf/local/default.yaml
-.zsh_history
+container_home/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -19,13 +19,8 @@
 #
 # Change these versions by yourself if needed.
 # ==================================================
-
 FROM nvidia/cuda:11.1.1-cudnn8-devel-ubuntu20.04
 
-
-# ==================================================
-# *Basic Setups
-# ==================================================
 
 # Set default RUN shell to /bin/bash
 SHELL ["/bin/bash", "-cu"]
@@ -37,7 +32,7 @@ ENV LC_ALL C.UTF-8
 
 
 # TUNA Mirror (optional)
-COPY misc/sources.list.ubuntu20.04 /etc/apt/sources.list
+# COPY project/codebase/misc/sources.list.ubuntu20.04 /etc/apt/sources.list
 
 
 # Install basic packages for compiling and building
@@ -58,6 +53,7 @@ RUN apt-get update && apt-get install -y --allow-downgrades --allow-change-held-
     tzdata \
     libgl1-mesa-glx \
     libglib2.0-0 \
+    fontconfig \
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -66,7 +62,7 @@ ARG python=3.8
 ENV PYTHON_VERSION=${python}
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/install-conda.sh \
     && chmod +x /tmp/install-conda.sh \
-    && /tmp/install-conda.sh -b -f -p /usr/local \
+    && bash /tmp/install-conda.sh -b -f -p /usr/local \
     && rm -f /tmp/install-conda.sh \
     && conda install -y python=${PYTHON_VERSION} \
     && conda clean -y --all
@@ -113,6 +109,7 @@ RUN apt-get update && apt-get install -y --allow-downgrades --allow-change-held-
     gnupg \
     lsb-release \
     sudo \
+    openssh-client \
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -124,8 +121,8 @@ RUN chsh -s `which zsh` \
     && git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH:-~/.oh-my-zsh}/custom/plugins/zsh-autosuggestions\
     && sed -i.bak '/plugin/s/(.*)/(git zsh-autosuggestions)/' ~/.zshrc
 
-# Make the color of zsh-autosuggestions right
-ENV TERM=xterm-256color
+# make the color of zsh-autosuggestions right
+ENV TERM xterm-256color
 
 
 # Install docker (to make docker in docker work)
@@ -160,6 +157,22 @@ RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
 
 # Install lightvim, a configuration for vim
 # RUN wget https://raw.githubusercontent.com/hughplay/lightvim/master/install.sh -O - | sh
+
+# ==================================================
+# *Fonts installation
+#
+# Install fonts that are commonly used in plotting.
+# Question: "Which font looks best in a scientific figure?"
+# Answer: "Arial or Helvetica, always."
+# https://pubs.acs.org/doi/10.1021/acs.chemmater.6b00306
+# ==================================================
+
+RUN cd /tmp \
+    && wget https://github.com/hughplay/memo/raw/master/code/snippet/drawing/plot_fonts.tar.gz \
+    && tar zxvf plot_fonts.tar.gz \
+    && cp plot_fonts/* /usr/share/fonts/truetype/ \
+    && rm -rf plot_fonts.tar.gz plot_fonts \
+    && fc-cache -fv
 
 
 # ==================================================
@@ -207,6 +220,7 @@ RUN if [ $USER_NAME != "root" ] ; \
 # Copy installed configuration files from root to user
 COPY misc/init_workspace /usr/local/bin
 RUN /usr/local/bin/init_workspace --user ${USER_NAME} --home /home/${USER_NAME}
+RUN cp -r /home/${USER_NAME} /${USER_NAME}_home_bak
 
 
 # Switch to the created user

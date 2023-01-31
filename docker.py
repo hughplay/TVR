@@ -1,14 +1,14 @@
-"""Run exmperiments in the docker container. Quick Start:
+"""Run experiments in the docker container. Quick Start:
 
 # Step 1. Install docker-compose in your workspace.
 pip install docker-compose
 # Step 2. Build docker image and start docker container once.
-python docker.py prepare --build
+python docker.py startd --build
 # Step 3. Enter the docker container at any time, start experiments now.
-python docker.py [enter]
+python docker.py
 
 # Enter the docker container using root account.
-python docker.py [enter] --root
+python docker.py --root
 """
 import argparse
 import os
@@ -22,7 +22,7 @@ DEFAULT_PROJECT_NAME = "mnist"
 DEFAULT_CODE_ROOT = "."
 DEFAULT_DATA_ROOT = "data"
 DEFAULT_LOG_ROOT = "log"
-DEFAULT_CACHE_ZSH_HISTORY = "./docker/misc/.zsh_history"
+DEFAULT_CONTAINER_HOME = "./docker/misc/container_home"
 
 
 class Env:
@@ -167,23 +167,23 @@ def _set_env(env_path=DEFAULT_ENV_PATH, verbose=False):
                 log_root.mkdir(parents=True)
         e["LOG_ROOT"] = str(log_root)
 
-    if "CACHE_ZSH_HISTORY" not in e:
-        cache_zsh_history = Path(
+    if "CONTAINER_HOME" not in e:
+        container_home = Path(
             _get_value_from_stdin(
-                "file to be synced with ~/.zsh_history",
-                default=DEFAULT_CACHE_ZSH_HISTORY,
+                f"directory to be mounted to {e['USER_NAME']}",
+                default=DEFAULT_CONTAINER_HOME,
             )
         ).resolve()
-        if not cache_zsh_history.exists():
+        if not container_home.exists():
             if (
                 _get_value_from_stdin(
-                    f"`{cache_zsh_history}` does not exist in your machine. Create?",
+                    f"`{container_home}` does not exist in your machine. Create?",
                     default="yes",
                 )
                 == "yes"
             ):
-                cache_zsh_history.touch()
-        e["CACHE_ZSH_HISTORY"] = str(cache_zsh_history)
+                container_home.mkdir(parents=True, exist_ok=True)
+        e["CONTAINER_HOME"] = str(container_home)
 
     e["COMPOSE_PROJECT_NAME"] = f"{e['PROJECT']}_{e['USER_NAME']}".lower()
     e.save()

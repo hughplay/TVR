@@ -19,6 +19,7 @@ Official repository for ["Transformation driven Visual Reasoning"](https://githu
 [![](https://img.shields.io/badge/TRANCE-explore_dataset-blue?style=flat-square&labelColor=gray)](https://hongxin2019.github.io/TVR/explore)
 [![](https://img.shields.io/badge/arXiv-2011.13160-b31b1b?style=flat-square)](https://arxiv.org/pdf/2011.13160.pdf)
 [![](https://img.shields.io/badge/PyTorch-ee4c2c?style=flat-square&logo=pytorch&logoColor=white)](https://pytorch.org/get-started/locally/)
+[![DeepCodebase](https://img.shields.io/badge/Deep-Codebase-2d50a5.svg?style=flat-square)](https://github.com/hughplay/DeepCodebase)
 
 
 <br>
@@ -81,8 +82,6 @@ python docker.py startd --build
 
 ``` sh
 python docker.py
-# or
-python docker.py enter
 ```
 
 <br>
@@ -122,7 +121,7 @@ After entering the container, you can run the following command to train a model
 python train.py experiment=event_cnn_concat logging.wandb.tags="[event, base]"
 ```
 
-Or, you can training multiple models with provided GPUs:
+Or, you can training multiple models with available GPUs:
 
 ``` bash
 python scripts/batch_train.py scripts/training/train_models.sh --gpus 0,1,2,3
